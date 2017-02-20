@@ -16,12 +16,13 @@ class ImageRepository {
 
 ImageRepository.initialize();
 
-function init() {
-    // The game object.
-    var game = null;
-
+/**
+ * Function to start game.
+ */
+function initialize() {
     try {
-        game = new Game();
+        // The game object.
+        var game = new Game();
         
         // Start game if it initializes properly.
         game.start();
