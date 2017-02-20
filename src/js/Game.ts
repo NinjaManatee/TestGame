@@ -2,8 +2,19 @@
  * Creates the Game object which will hold all objects and data for the game.
  */
 class Game {
+    /**
+     * The background canvas.
+     */
     bgCanvas: HTMLCanvasElement;
+
+    /**
+     * The background context.
+     */
     bgContext: CanvasRenderingContext2D;
+
+    /**
+     * The background object.
+     */
     background: Background;
 
 	/*
@@ -28,7 +39,9 @@ class Game {
         }
     };
     
-    // Start the animation loop
+    /**
+     * Start the animation loop
+     */
     public start() {
         this.animate();
     };
@@ -38,7 +51,9 @@ class Game {
      * function must be a gobal function and cannot be within an object.
      */
     private animate() {
-        this.requestAnimFrame(this.animate);
+        window.requestAnimationFrame(() => {
+            this.animate();    
+        });
         this.background.draw();
     }
 
@@ -47,7 +62,7 @@ class Game {
      * Finds the first API that works to optimize the animation loop,
      * otherwise defaults to setTimeout().
      */
-    private requestAnimFrame(callback: Function) {
+    private requestAnimFrame(callback: Function) : Function {
         return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             function (/* function */ callback, /* DOMElement */ element) {
