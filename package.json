@@ -1,0 +1,29 @@
+{
+  "name": "testgame",
+  "version": "0.1.0",
+  "description": "Project to learn how to create JavaScript games",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run build && npm start",
+    "start": "lite-server",
+    "compile": "tsc",
+    "clean": "rimraf ./dist",
+    "copy": "npm run copyHTML && npm run copyCSS && npm run copyIMG",
+    "copyHTML": "copyfiles ./*.html ./dist",
+    "copyCSS": "copyfiles -f ./src/css/*.css ./dist/css/",
+    "copyIMG": "copyfiles -f ./src/img/* ./dist/img/",
+    "build": "npm run clean && npm run compile && npm run copy"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Andy Gardner",
+  "license": "ISC",
+  "devDependencies": {
+    "copyfiles": "^1.2.0",
+    "lite-server": "^2.2.2",
+    "typescript": "^2.1.6",
+    "rimraf": "^2.6.0"
+
+  }
+}
