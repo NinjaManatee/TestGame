@@ -13,7 +13,9 @@ class Background extends Drawable {
         this.speed = 1;
     }
 
-    // Implement abstract function
+    /**
+	 * Draw the background.
+	 */
 	draw() {
 		// Pan background
 		this.y += this.speed;
