@@ -9,7 +9,7 @@
     "compile": "tsc",
     "clean": "rimraf ./dist",
     "copy": "npm run copyHTML && npm run copyCSS && npm run copyIMG",
-    "copyHTML": "copyfiles ./*.html ./dist",
+    "copyHTML": "copyfiles -f ./src/*.html ./dist",
     "copyCSS": "copyfiles -f ./src/css/*.css ./dist/css/",
     "copyIMG": "copyfiles -f ./src/img/* ./dist/img/",
     "build": "npm run clean && npm run compile && npm run copy"
