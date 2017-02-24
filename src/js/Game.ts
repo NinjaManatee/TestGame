@@ -1,21 +1,80 @@
 /**
  * Creates the Game object which will hold all objects and data for the game.
+ * 
+ * @class Game
  */
 class Game {
     /**
      * The background canvas.
+     * 
+     * @private
+     * @type {HTMLCanvasElement}
+     * @memberOf Game
      */
-    bgCanvas: HTMLCanvasElement;
+    private bgCanvas: HTMLCanvasElement;
+
+    /**
+     * The ship canvas.
+     * 
+     * @private
+     * @type {HTMLCanvasElement}
+     * @memberOf Game
+     */
+    private shipCanvas: HTMLCanvasElement;
+
+    /**
+     * The main canvas.
+     * 
+     * @private
+     * @type {HTMLCanvasElement}
+     * @memberOf Game
+     */
+    private mainCanvas: HTMLCanvasElement;
 
     /**
      * The background context.
+     * 
+     * @private
+     * @type {CanvasRenderingContext2D}
+     * @memberOf Game
      */
-    bgContext: CanvasRenderingContext2D;
+    private bgContext: CanvasRenderingContext2D;
+
+    /**
+     * The ship context.
+     * 
+     * @private
+     * @type {CanvasRenderingContext2D}
+     * @memberOf Game
+     */
+    private shipContext: CanvasRenderingContext2D;
+
+    /**
+     * The main context.
+     * 
+     * @private
+     * @type {CanvasRenderingContext2D}
+     * @memberOf Game
+     */
+    private mainContext: CanvasRenderingContext2D;
 
     /**
      * The background object.
+     * 
+     * @private
+     * @type {Background}
+     * @memberOf Game
      */
-    background: Background;
+    private background: Background;
+
+    /**
+     * The ship object.
+     * 
+     * @private
+     * @type {Ship}
+     * @memberOf Game
+     */
+    private ship: Ship;
 
 	/*
 	 * Gets canvas information and context and sets up all game objects.
@@ -25,15 +84,22 @@ class Game {
     constructor() {
         // Get the canvas element
         this.bgCanvas = <HTMLCanvasElement>document.getElementById('background');
+        this.shipCanvas = <HTMLCanvasElement>document.getElementById('ship');
+        this.mainCanvas = <HTMLCanvasElement>document.getElementById('main');
 
         // Test to see if canvas is supported
         if (this.bgCanvas.getContext) {
-            this.bgContext = this.bgCanvas.getContext('2d');
+            this.bgContext = <CanvasRenderingContext2D>this.bgCanvas.getContext('2d');
+            this.shipContext = <CanvasRenderingContext2D>this.shipCanvas.getContext('2d');
+            this.mainContext = <CanvasRenderingContext2D>this.mainCanvas.getContext('2d');
 
             // Initialize the background object
-            this.background = new Background(this.bgContext);
-            this.background.width = this.bgCanvas.width;
-            this.background.height = this.bgCanvas.height
+            this.background = new Background(
+                this.bgContext, 0, 0, this.bgCanvas.height, this.bgCanvas.width, 1);
+            
+            // Initialize the ship object.
+            this.ship = new Ship(this.shipContext, this.shipCanvas);
+            
         } else {
             throw new Error("Canvas is not supported");
         }
@@ -43,6 +109,7 @@ class Game {
      * Start the animation loop
      */
     public start() {
+        this.ship.draw();
         this.animate();
     };
 
@@ -56,6 +123,34 @@ class Game {
         });
         this.background.draw();
     }
+
+    /**
+     * Handles the moving of the ship.
+     * 
+     * @memberOf Game
+     */
+	private moveShip() {
+		// Determine if the action is move action
+		if (KEY_STATUS[KEY_CODE.Left] || KEY_STATUS[KEY_CODE.Right] ||
+			KEY_STATUS[KEY_CODE.Down] || KEY_STATUS[KEY_CODE.Up]) {
+            // Update x and y according to the direction to move and
+			// redraw the ship. Change the else if's to if statements
+			// to have diagonal movement.
+			if (KEY_STATUS[KEY_CODE.Left]) {
+                this.ship.move(KEY_CODE.Left);
+			} else if (KEY_STATUS[KEY_CODE.Right]) {
+                this.ship.move(KEY_CODE.Right);
+			} else if (KEY_STATUS[KEY_CODE.Up]) {
+                this.ship.move(KEY_CODE.Up);
+			} else if (KEY_STATUS[KEY_CODE.Down]) {
+                this.ship.move(KEY_CODE.Down);
+			}
+		}
+
+		if (KEY_STATUS[KEY_CODE.Space]) {
+			this.ship.fire();
+		}
+	};
 
     /**
      * requestAnim shim layer by Paul Irish
