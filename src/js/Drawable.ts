@@ -58,32 +58,4 @@ abstract class Drawable {
 
 		this.draw();
 	}
-
-    public moveLeft() {
-// Update x and y according to the direction to move and
-			// redraw the ship. Change the else if's to if statements
-			// to have diagonal movement.
-			if (KEY_STATUS[KEY_CODE.Left]) {
-			this.x -= this.speed
-				if (this.x <= 0) {
-					// Keep player within the screen
-					this.x = 0;
-				}
-				} else if (KEY_STATUS[KEY_CODE.Right]) {
-				this.x += this.speed
-				if (this.x >= this.canvasWidth - this.width) {
-					this.x = this.canvasWidth - this.width;
-                }
-			} else if (KEY_STATUS[KEY_CODE.Up]) {
-				this.y -= this.speed
-				if (this.y <= this.canvasHeight/4*3) {
-					this.y = this.canvasHeight/4*3;
-                }
-			} else if (KEY_STATUS[KEY_CODE.Down]) {
-				this.y += this.speed
-				if (this.y >= this.canvasHeight - this.height) {
-					this.y = this.canvasHeight - this.height;
-                }
-			}
-	}
 }
