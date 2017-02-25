@@ -38,7 +38,13 @@ class Pool {
 
 	/*
 	 * Grabs the last item in the list and initializes it and pushes it to the front of the array.
-	 */
+	 * 
+     * @param {number} x The x-position of the bullet.
+     * @param {number} y The y-position of the bullet.
+     * @param {number} speed The speed of the bullet.
+     * 
+     * @memberOf Pool
+     */
 	public get(x: number, y: number, speed: number) {
 		if(!this.pool[ - 1].isAlive) {
 			this.pool[this.pool.length - 1].spawn(x, y, speed);
@@ -67,7 +73,9 @@ class Pool {
 
 	/**
 	 * Draws any in use Bullets. If a bullet goes off the screen, clears it and pushes it to the front of the array.
-	 */
+     * 
+     * @memberOf Pool
+     */
 	public animate() {
 		for (var i = 0; i < this.pool.length; i++) {
 			// Only draw until we find a bullet that is not alive

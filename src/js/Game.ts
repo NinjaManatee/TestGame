@@ -76,11 +76,13 @@ class Game {
      */
     private ship: Ship;
 
-	/*
-	 * Gets canvas information and context and sets up all game objects.
-	 * @returns true if the canvas is supported and false if it is not. This is to stop the animation script from 
-     * constantly running on older browsers.
-	 */
+	/**
+     * Creates an instance of Game.
+     * 
+     * @throws Error if Canvas is not supported.
+     * 
+     * @memberOf Game
+     */
     constructor() {
         // Get the canvas element
         this.bgCanvas = <HTMLCanvasElement>document.getElementById('background');
@@ -107,6 +109,8 @@ class Game {
     
     /**
      * Start the animation loop
+     * 
+     * @memberOf Game
      */
     public start() {
         this.ship.draw();
@@ -116,6 +120,10 @@ class Game {
     /**
      * The animation loop. Calls the requestAnimationFrame shim to optimize the game loop and draws all game objects. This
      * function must be a gobal function and cannot be within an object.
+     * 
+     * @private
+     * 
+     * @memberOf Game
      */
     private animate() {
         window.requestAnimationFrame(() => {
@@ -158,6 +166,12 @@ class Game {
      * requestAnim shim layer by Paul Irish
      * Finds the first API that works to optimize the animation loop,
      * otherwise defaults to setTimeout().
+     * 
+     * @private
+     * @param {Function} callback 
+     * @returns {Function} 
+     * 
+     * @memberOf Game
      */
     private requestAnimFrame(callback: Function) : Function {
         return window.requestAnimationFrame ||

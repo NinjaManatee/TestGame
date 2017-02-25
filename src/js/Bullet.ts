@@ -1,6 +1,9 @@
 /**
  * Creates the Bullet object which the ship fires. The bullets are
  * drawn on the "main" canvas.
+ * 
+ * @class Bullet
+ * @extends {Drawable}
  */
 class Bullet extends Drawable {
     /**
@@ -30,11 +33,14 @@ class Bullet extends Drawable {
 
 	/*
 	 * Uses a "drity rectangle" to erase the bullet and moves it.
-	 * Returns true if the bullet moved off the screen, indicating that
-	 * the bullet is ready to be cleared by the pool, otherwise draws
-	 * the bullet.
+	 * 
+	 * 
+	 * @returns true if the bullet moved off the screen, indicating that the bullet is ready to be cleared by the pool,
+	 * otherwise draws the bullet.
+	 * 
+	 * @memberOf Bullet
 	 */
-	draw() {
+	draw(): boolean {
 		this.context.clearRect(this.x, this.y, this.width, this.height);
 		this.y -= this.speed;
 		if (this.y <= 0 - this.height) {
@@ -42,11 +48,14 @@ class Bullet extends Drawable {
 		}
 		else {
 			this.context.drawImage(ImageRepository.Bullet, this.x, this.y);
+			return false;
 		}
 	}
 
 	/*
 	 * Resets the bullet values
+	 * 
+	 * @memberOf Bullet
 	 */
 	clear() {
 		this.x = 0;

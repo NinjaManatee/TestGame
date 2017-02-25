@@ -97,7 +97,13 @@ class Ship extends Drawable {
 		}
 	};
 
-
+	/**
+	 * Moves the ship in a direction.
+	 * 
+	 * @param {KEY_CODE} direction 
+	 * 
+	 * @memberOf Ship
+	 */
 	public move(direction: KEY_CODE) {
 		switch (direction) {
 			case KEY_CODE.Left: {
