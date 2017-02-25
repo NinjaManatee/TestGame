@@ -86,19 +86,14 @@ class ImageRepository {
  * Function to start game.
  */
 var initialize = () => {
-    try {
+    // The game object.
+    let game: Game = new Game();
 
-        // The game object.
-        let game: Game = new Game();
+    // Initialize the image repository        
+    ImageRepository.initialize();
 
-        // Initialize the image repository        
-        ImageRepository.initialize();
-
-        // Start game if it initializes properly.
-        game.start();
-    } catch (e) {
-        alert(e.message);
-    }
+    // Start game if it initializes properly.
+    game.start();
 }
 
 /**
