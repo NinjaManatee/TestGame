@@ -7,6 +7,15 @@
  */
 class Ship extends Drawable {
 	/**
+     * The pool of bullets for the ship.
+     * 
+     * @private
+     * @type {Pool}
+     * @memberOf Ship
+     */
+	public readonly bulletPool: Pool;
+	
+	/**
 	 * The fraction of the vertical screen height where the ship can reside. Ship wills stay in the bottom fraciton.
 	 * 
 	 * @private
@@ -15,15 +24,6 @@ class Ship extends Drawable {
 	 */
 	private static readonly SHIP_SCREEN_FRACTION: number = 0.25;
     
-	/**
-     * The pool of bullets for the ship.
-     * 
-     * @private
-     * @type {Pool}
-     * @memberOf Ship
-     */
-	private readonly bulletPool: Pool;
-	
     /**
      * The Fire rate for the ship.
      * 
@@ -49,22 +49,28 @@ class Ship extends Drawable {
 
 	/**
 	 * Creates an instance of Ship.
-	 * @param {CanvasRenderingContext2D} context 
-	 * @param {HTMLCanvasElement} canvas 
+	 * @param {CanvasRenderingContext2D} shipContext The context for the ship.
+	 * @param {HTMLCanvasElement} shipCanvas The canvas for the ship.
+	 * @param {CanvasRenderingContext2D} bulletContext The context for the bullets.
+	 * @param {HTMLCanvasElement} bulletCanvas The canvas for the bullets.
 	 * 
 	 * @memberOf Ship
 	 */
-	constructor(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+	constructor(
+		shipContext: CanvasRenderingContext2D, 
+		shipCanvas: HTMLCanvasElement, 
+		bulletContext: CanvasRenderingContext2D,
+		bulletCanvas: HTMLCanvasElement) {
 		super(
-			context, 
-			Ship.getInitialX(canvas), 
-			Ship.getInitialY(canvas), 
+			shipContext, 
+			Ship.getInitialX(shipCanvas), 
+			Ship.getInitialY(shipCanvas), 
 			ImageRepository.Spaceship.height, 
 			ImageRepository.Spaceship.width, 
-			canvas.height,
-			canvas.width,
+			shipCanvas.height,
+			shipCanvas.width,
 			Ship.INITIAL_SHIP_SPEED);
-		this.bulletPool = new Pool(context, canvas, 30);
+		this.bulletPool = new Pool(bulletContext, bulletCanvas, 30);
 	}
 
     /**

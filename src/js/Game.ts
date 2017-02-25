@@ -98,7 +98,7 @@ class Game {
                 this.bgContext, 0, 0, this.bgCanvas.height, this.bgCanvas.width, 1);
             
             // Initialize the ship object.
-            this.ship = new Ship(this.shipContext, this.shipCanvas);
+            this.ship = new Ship(this.shipContext, this.shipCanvas, this.mainContext, this.mainCanvas);
             
         } else {
             throw new Error("Canvas is not supported");
@@ -122,6 +122,8 @@ class Game {
             this.animate();    
         });
         this.background.draw();
+        this.moveShip();
+        this.ship.bulletPool.animate();
     }
 
     /**
